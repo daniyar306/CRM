@@ -71,7 +71,6 @@
     <Compile Include="BLogicLayer\IPersonController.cs" />
     <Compile Include="BLogicLayer\IndPersonController.cs" />
     <Compile Include="BLogicLayer\LegalPersonController.cs" />
-    <Compile Include="clogger.cs" />
     <Compile Include="Model\Contragent.cs" />
     <Compile Include="Model\IndividualPerson.cs" />
     <Compile Include="Model\LegalPerson.cs" />

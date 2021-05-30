@@ -16,11 +16,12 @@ namespace CRM
     {
         static void Main(string[] args)
         {
-
-
-            Console.WriteLine("Вывод физ. лиц\n");
-            IPersonController<IndividualPerson> IndividualPersonsController = new IndPersonController("Individual.csv");
-            List<IndividualPerson> IndividualPersons = new List<IndividualPerson>()
+            try
+            {
+                #region IndividualPerson
+                Console.WriteLine("Вывод физ. лиц\n");
+                IPersonController<IndividualPerson> IndividualPersonsController = new IndPersonController("Individual.csv");
+                List<IndividualPerson> IndividualPersons = new List<IndividualPerson>()
             {
               new IndividualPerson("3", "9325152", DateTime.Now.Date, "Человек1", DateTime.Today, null, "Baniyar", "Baniyar", "Baniyar", "2")
              ,new IndividualPerson("1", "9325152", DateTime.Now.Date, "Человек1", DateTime.Today, null, "Daniyar", "Daniyar", "Daniyar", "1")
@@ -28,15 +29,18 @@ namespace CRM
 
             };
 
-            IndividualPersonsController.Set_Contragents(IndividualPersons);
+                IndividualPersonsController.Set_Contragents(IndividualPersons);
 
-          
-             foreach (var t in IndividualPersonsController.Get_Contragents())
-                  Console.WriteLine($"Имя:{t.Name}, Фамилия: {t.LastName}, Отчество: {t.SecondName}");
 
-            Console.WriteLine("Вывод юр. лиц\n");
+                foreach (var t in IndividualPersonsController.Get_Contragents())
+                    Console.WriteLine($"Имя:{t.Name}, Фамилия: {t.LastName}, Отчество: {t.SecondName}");
 
-            List<LegalPerson> LegalPersons = new List<LegalPerson>()
+                #endregion
+
+                #region LegalPerson
+                Console.WriteLine("Вывод юр. лиц\n");
+
+                List<LegalPerson> LegalPersons = new List<LegalPerson>()
             {
              new LegalPerson("1", "9325152", DateTime.Now.Date, "Человек1", DateTime.Today, null, "TOO Эмиль")
             ,new LegalPerson("3", "9325152", DateTime.Now.Date, "Человек1", DateTime.Today, null, "АО КазЦинк")
@@ -44,17 +48,21 @@ namespace CRM
             };
 
 
-            IPersonController<LegalPerson> LegalPersonsController = new LegalPersonController("Legal.csv", IndividualPersonsController);
-            LegalPersonsController.Set_Contragents(LegalPersons);
+                IPersonController<LegalPerson> LegalPersonsController = new LegalPersonController("Legal.csv", IndividualPersonsController);
+                LegalPersonsController.Set_Contragents(LegalPersons);
 
-            foreach (var t in LegalPersonsController.Get_Contragents()) 
+                foreach (var t in LegalPersonsController.Get_Contragents())
+                {
+                    Console.Write($"Наименование юр. лицо:{t.FullName} , количество конт.лиц: {t.IndPersons.Count()}, контактное лицо:");
+                    foreach (var persons in t.IndPersons)
+                        Console.WriteLine($" Имя:{persons.Name}  Фамилия:{persons.LastName} ");
+
+                }
+                #endregion
+            }catch (Exception ex) 
             {
-               Console.Write($"Наименование юр. лицо:{t.FullName} , количество конт.лиц: {t.IndPersons .Count()}---");
-                 foreach (var persons in t.IndPersons)
-                  Console.WriteLine($"контактное лицо, Имя:{persons.Name}  Фамилия:{persons.LastName} ");
-            
+                Console.WriteLine(ex.Message);
             }
-
             Console.ReadKey();
 
 
