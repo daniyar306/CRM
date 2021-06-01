@@ -1,7 +1,7 @@
 ﻿using CRM.BLL.BussinesModels;
 using CRM.BLL.DTO;
+using CRM.DAL.Interface;
 using CRM.DAL.Model;
-using CRM.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
