@@ -11,8 +11,10 @@ namespace CRM.DAL.Interface
         IEnumerable<T> GetAll();
         T Get(int id);
         void Create(IEnumerable<T> item);
+
+        void Create(T item);
         void Update(T item);
-        void Delete(int id);
+        void Delete(T item);
 
     }
 }

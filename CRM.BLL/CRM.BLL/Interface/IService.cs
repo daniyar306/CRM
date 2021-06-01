@@ -8,11 +8,11 @@ namespace CRM.BLL.Interface
 {
     interface IService<T> where T : class
     {
-        IEnumerable<T> GetAll();
+        IEnumerable<T> GetAll(bool type);
         T Get(int id);
         void Create(IEnumerable<T> item);
         void Update(T item);
-        void Delete(int id);
+        void Delete(T item);
 
     }
 }

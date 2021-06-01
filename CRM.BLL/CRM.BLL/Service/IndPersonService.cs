@@ -17,22 +17,15 @@ namespace CRM.BLL.Service
 
         }
 
-        public override void Delete(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override IndividualPerson Get(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override IEnumerable<IndividualPerson> GetAll()
+        public override IEnumerable<IndividualPerson> GetAll(bool type)
         {
            try
             {
                 if (repository.GetAll() != null)
-                    return repository.GetAll().OrderBy(x => x.LastName).ThenBy(x => x.Name).ThenBy(x => x.SecondName);
+                    if (type)
+                        return repository.GetAll().OrderBy(x => x.LastName).ThenBy(x => x.Name).ThenBy(x => x.SecondName);
+                    else
+                        return repository.GetAll();
                 else
                     return null;
             }
@@ -44,9 +37,5 @@ namespace CRM.BLL.Service
 
         }
 
-        public override void Update(IndividualPerson item)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

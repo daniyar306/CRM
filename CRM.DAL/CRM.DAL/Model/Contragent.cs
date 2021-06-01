@@ -13,7 +13,7 @@ namespace CRM.DAL.Model
         /// Идентификатор
         /// </summary>
         [Name("Id")]
-        public string Id { get; set; }
+        public int Id { get; set; }
         /// <summary>
         /// ИИН/БИН
         /// </summary>
@@ -40,7 +40,7 @@ namespace CRM.DAL.Model
         [Name("Update_Autor")]
         public string Update_Autor{ get; set; }
 
-       public Contragent(string Id,string IIN_BIN,DateTime CreateDate,string Create_Autor,DateTime UpdateDate,string Update_Autor) 
+       public Contragent(int Id,string IIN_BIN,DateTime CreateDate,string Create_Autor,DateTime UpdateDate,string Update_Autor) 
         {
             this.Id = Id;
 

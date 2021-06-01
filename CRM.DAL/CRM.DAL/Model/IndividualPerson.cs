@@ -19,9 +19,9 @@ namespace CRM.DAL.Model
         public string LastName { get; set; }
 
         [Name("LegalPerson_Id")]
-        public string LegalPerson_Id { get; set; }
+        public int LegalPerson_Id { get; set; }
 
-        public IndividualPerson(string Id, string IIN_BIN, DateTime CreateDate, string Create_Autor, DateTime UpdateDate, string Update_Autor,string Name, string SecondName,string LastName, string LegalPerson_Id)
+        public IndividualPerson(int Id, string IIN_BIN, DateTime CreateDate, string Create_Autor, DateTime UpdateDate, string Update_Autor,string Name, string SecondName,string LastName, int LegalPerson_Id)
             : base(Id,IIN_BIN, CreateDate, Create_Autor, UpdateDate, Update_Autor) 
 
         {
