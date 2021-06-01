@@ -1,7 +1,6 @@
 ﻿using CRM.BLL.DTO;
 using CRM.BLL.Service;
 using CRM.DAL.Interface;
-using CRM.DAL.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;

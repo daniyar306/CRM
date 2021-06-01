@@ -1,4 +1,4 @@
-﻿
+﻿using CsvHelper.Configuration.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,21 +7,21 @@ using System.Threading.Tasks;
 
 namespace CRM.BLL.DTO
 {
-    public class IndividualPersonDTO:ContragentDTO
+    public class IndividualPerson:Contragent 
     {
-      
+        [Name("Name")]
         public string Name { get; set; }
 
-       
+        [Name("SecondName")]
         public string SecondName { get; set; }
 
-      
+        [Name("LastName")]
         public string LastName { get; set; }
 
-     
+        [Name("LegalPerson_Id")]
         public int LegalPerson_Id { get; set; }
 
-        public IndividualPersonDTO(int Id, string IIN_BIN, DateTime CreateDate, string Create_Autor, DateTime UpdateDate, string Update_Autor,string Name, string SecondName,string LastName, int LegalPerson_Id)
+        public IndividualPerson(int Id, string IIN_BIN, DateTime CreateDate, string Create_Autor, DateTime UpdateDate, string Update_Autor,string Name, string SecondName,string LastName, int LegalPerson_Id)
             : base(Id,IIN_BIN, CreateDate, Create_Autor, UpdateDate, Update_Autor) 
 
         {

@@ -1,6 +1,5 @@
 ﻿using CRM.BLL.DTO;
 using CRM.DAL.Interface;
-using CRM.DAL.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace CRM.BLL.Service
 {
-    class IndPersonService: ContragentService<IndividualPerson>
+    public class IndPersonService: ContragentService<IndividualPerson>
     {
-        public IndPersonService(IRepository<IndividualPerson> _repository) : base((DAL.Interface.IRepository<IndividualPerson>)_repository)
+        public IndPersonService(string constring) : base(constring)
         {
 
         }

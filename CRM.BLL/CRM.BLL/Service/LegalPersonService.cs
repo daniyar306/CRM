@@ -1,7 +1,6 @@
 ﻿using CRM.BLL.BussinesModels;
 using CRM.BLL.DTO;
 using CRM.DAL.Interface;
-using CRM.DAL.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +16,7 @@ namespace CRM.BLL.Service
         private ContragentService<IndividualPerson> individualPersonsService;
 
    
-        public LegalPersonService(IRepository<LegalPerson> _repository, ContragentService<IndividualPerson> _individualPersonsService) : base((DAL.Interface.IRepository<LegalPerson>)_repository)
+        public LegalPersonService(string constring, ContragentService<IndividualPerson> _individualPersonsService) : base(constring)
         {
             this.individualPersonsService = _individualPersonsService;
         }
