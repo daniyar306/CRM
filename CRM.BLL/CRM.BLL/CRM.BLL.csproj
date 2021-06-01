@@ -53,10 +53,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\CRM.csproj">
-      <Project>{8AB26FFE-F1F9-4948-9742-FC209B597D30}</Project>
-      <Name>CRM</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\CRM.DAL\CRM.DAL\CRM.DAL.csproj">
       <Project>{44ae7660-9784-4468-9db2-647d9af1dfd6}</Project>
       <Name>CRM.DAL</Name>
