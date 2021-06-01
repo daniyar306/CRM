@@ -22,7 +22,7 @@ namespace CRM.DAL.Model
         [Optional]
         public IEnumerable <IndividualPerson> IndPersons { get; set; }
 
-        public LegalPerson(string Id, string IIN_BIN, DateTime CreateDate, string Create_Autor, DateTime UpdateDate, string Update_Autor, string FullName)
+        public LegalPerson(int Id, string IIN_BIN, DateTime CreateDate, string Create_Autor, DateTime UpdateDate, string Update_Autor, string FullName)
            : base(Id, IIN_BIN, CreateDate, Create_Autor, UpdateDate, Update_Autor)
 
         {

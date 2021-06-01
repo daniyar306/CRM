@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CRM.BLL.DTO
 {
-    public class IndividualPersonDTO:Contragent 
+    public class IndividualPersonDTO:ContragentDTO
     {
       
         public string Name { get; set; }
@@ -14,13 +15,13 @@ namespace CRM.BLL.DTO
        
         public string SecondName { get; set; }
 
-    
+      
         public string LastName { get; set; }
 
-      
-        public string LegalPerson_Id { get; set; }
+     
+        public int LegalPerson_Id { get; set; }
 
-        public IndividualPersonDTO(string Id, string IIN_BIN, DateTime CreateDate, string Create_Autor, DateTime UpdateDate, string Update_Autor,string Name, string SecondName,string LastName, string LegalPerson_Id)
+        public IndividualPersonDTO(int Id, string IIN_BIN, DateTime CreateDate, string Create_Autor, DateTime UpdateDate, string Update_Autor,string Name, string SecondName,string LastName, int LegalPerson_Id)
             : base(Id,IIN_BIN, CreateDate, Create_Autor, UpdateDate, Update_Autor) 
 
         {

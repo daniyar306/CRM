@@ -18,10 +18,19 @@ namespace CRM.BLL.Service
             repository = _repository;
         }
 
-        public abstract void Delete(int id);
-        public abstract T Get(int id);
-        public abstract IEnumerable<T> GetAll();
-        public abstract void Update(T item);
+        public void Delete(T item)
+        {
+            repository.Delete(item);
+        }
+        public T Get(int id) 
+        {
+          return  repository.Get(id);     
+        }
+        public abstract IEnumerable<T> GetAll(bool type);
+        public void Update(T item)
+        {
+            repository.Update(item);
+        }
         public  void Create(IEnumerable<T> contragents)
         {
 

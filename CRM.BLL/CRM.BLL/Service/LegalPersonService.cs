@@ -22,23 +22,14 @@ namespace CRM.BLL.Service
             this.individualPersonsService = _individualPersonsService;
         }
 
-        public override void Delete(int id)
-        {
-            throw new NotImplementedException();
-        }
 
-        public override LegalPerson Get(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override IEnumerable<LegalPerson> GetAll()
+        public override IEnumerable<LegalPerson> GetAll(bool type)
         {
             try
             {
-                if (repository.GetAll() != null && individualPersonsService.GetAll() != null)
+                if (repository.GetAll() != null && individualPersonsService.GetAll(type) != null)
                 {
-                    return (IEnumerable<LegalPerson>)GetLegalPersons.Get_Persons(true,repository,individualPersonsService);
+                    return GetLegalPersons.Get_Persons(type, repository,individualPersonsService);
                 }
                 else
                     return null;
@@ -50,10 +41,5 @@ namespace CRM.BLL.Service
             }
         }
 
-
-        public override void Update(LegalPerson item)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

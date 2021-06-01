@@ -42,13 +42,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BussinesModels\GetLegalPersons.cs" />
+    <Compile Include="DTO\Contragent.cs" />
+    <Compile Include="DTO\IndividualPerson.cs" />
+    <Compile Include="DTO\LegalPerson.cs" />
     <Compile Include="Service\IndPersonService.cs" />
     <Compile Include="Service\ContragentService.cs" />
     <Compile Include="Service\LegalPersonService.cs" />
-    <Compile Include="Class1.cs" />
-    <Compile Include="DTO\Contragent.cs" />
-    <Compile Include="DTO\IndividualPersonDTO.cs" />
-    <Compile Include="DTO\LegalPersonDTO.cs" />
     <Compile Include="Infrastructure\ValidationException.cs" />
     <Compile Include="Interface\IService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -25,9 +25,15 @@ namespace CRM.DAL.Repository
             _context.SaveChanges();
         }
 
-        public void Delete(int id)
+        public void Create(T item)
         {
-            var item= _dbSet.Find(id); 
+            _dbSet.Add(item);
+            _context.SaveChanges();
+        }
+
+        public void Delete(T item)
+        {
+          
             _dbSet.Remove(item);
             _context.SaveChanges();
         }
