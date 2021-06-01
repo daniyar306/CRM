@@ -13,9 +13,9 @@ namespace CRM.BLL.Service
     {
         public static IRepository<T> repository;
        
-        public ContragentService(IRepository<T> _repository)
+        public ContragentService(string constring)
         {
-            repository = _repository;
+            repository = new CSVRepository<T>(constring);
         }
 
         public void Delete(T item)
