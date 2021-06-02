@@ -11,7 +11,24 @@ namespace CRM.BLL.Service
 {
     public class IndPersonService: ContragentService<IndividualPerson>
     {
-        public IndPersonService(string constring) : base(constring)
+        private static IndPersonService instance;
+
+        private static object syncRoot = new Object();
+
+        public static IndPersonService getInstance(string constring)
+        {
+            if (instance == null)
+            {
+                lock (syncRoot)
+                {
+                    if (instance == null)
+                        instance = new IndPersonService(constring);
+                }
+            }
+            return instance;
+        }
+
+        protected IndPersonService(string constring) : base(constring)
         {
 
         }

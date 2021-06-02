@@ -21,7 +21,7 @@ namespace CRM
                
                 Console.WriteLine("Вывод физ. лиц\n");
 
-                IndPersonService IndividualPersonsService = new IndPersonService("Individual.csv");
+                IndPersonService IndividualPersonsService = IndPersonService.getInstance("Individual.csv");
                      List<IndividualPerson> IndividualPersons = new List<IndividualPerson>()
                  {
                    new IndividualPerson(3, "9325152", DateTime.Now.Date, "Человек1", DateTime.Today, null, "Baniyar", "Baniyar", "Baniyar", 2)
@@ -52,7 +52,7 @@ namespace CRM
             };
 
 
-                LegalPersonService LegalPersonsService = new LegalPersonService("Legal.csv", IndividualPersonsService);
+                LegalPersonService LegalPersonsService = LegalPersonService.getInstance("Legal.csv", IndividualPersonsService);
 
                 LegalPersonsService.Create(LegalPersons);
 
