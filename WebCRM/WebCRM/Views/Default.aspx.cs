@@ -34,14 +34,15 @@ namespace WebCRM
 
         private void BindRepeater()
         {
-            Repeater1.DataSource = Converter.ConvertToDatatable(IndividualPersonsService.GetAll(false));
+            var result = IndividualPersonsService.GetAll(false);
+            Repeater1.DataSource = Converter.ConvertToDatatable(result);
             Repeater1.DataBind();
         }
 
         protected void Insert(object sender, EventArgs e)
         {
-           
-    //        IndividualPersonsService.Create(new IndividualPerson(incrementID++, txtIIN., DateTime CreateDate, string Create_Autor, DateTime UpdateDate, string Update_Autor, string Name, string SecondName, string LastName, int LegalPerson_Id))
+
+            IndividualPersonsService.Create(new IndividualPerson(Convert.ToInt16(Id.Text), IIN_BIN.Text, DateTime.Now.Date, "", DateTime.Now.Date, "", Name.Text, SecondName.Text, LastName.Text, Convert.ToInt16(LegalPerson_Id.Text)));
             this.BindRepeater();
         }
 
@@ -61,12 +62,21 @@ namespace WebCRM
             item.FindControl("lnkDelete").Visible = !isEdit;
 
             //Toggle Labels.
-            item.FindControl("lblContactName").Visible = !isEdit;
-            item.FindControl("lblCountry").Visible = !isEdit;
-
+            item.FindControl("lblId").Visible = !isEdit;
+            item.FindControl("lblIIN").Visible = !isEdit;
+            item.FindControl("lblName").Visible = !isEdit;
+            item.FindControl("lblLastName").Visible = !isEdit;
+            item.FindControl("lblSecondName").Visible = !isEdit;
+            item.FindControl("lblLegalPerson_Id").Visible = !isEdit;
+    
             //Toggle TextBoxes.
-            item.FindControl("txtContactName").Visible = isEdit;
-            item.FindControl("txtCountry").Visible = isEdit;
+            item.FindControl("txtId").Visible = isEdit;
+            item.FindControl("txtIIN").Visible = isEdit;
+            item.FindControl("txtName").Visible = isEdit;
+            item.FindControl("txtLastName").Visible = isEdit;
+            item.FindControl("txtSecondName").Visible = isEdit;
+            item.FindControl("txtLegalPerson_Id").Visible = isEdit;
+        
         }
 
         protected void OnCancel(object sender, EventArgs e)
@@ -80,50 +90,42 @@ namespace WebCRM
         {
             //Find the reference of the Repeater Item.
             RepeaterItem item = (sender as LinkButton).Parent as RepeaterItem;
-            int customerId = int.Parse((item.FindControl("lblCustomerId") as Label).Text);
-            string name = (item.FindControl("txtContactName") as TextBox).Text.Trim();
-            string country = (item.FindControl("txtCountry") as TextBox).Text.Trim();
+            int Id = int.Parse((item.FindControl("lblId") as Label).Text);
+            string IIN = (item.FindControl("txtIIN") as TextBox).Text.Trim();
+            string Name = (item.FindControl("txtName") as TextBox).Text.Trim();
 
-         /*   string constr = ConfigurationManager.ConnectionStrings["constr"].ConnectionString;
-            using (SqlConnection con = new SqlConnection(constr))
+            string LastName = (item.FindControl("txtLastName") as TextBox).Text.Trim();
+            string SecondName = (item.FindControl("txtSecondName") as TextBox).Text.Trim();
+            int LPersId = int.Parse((item.FindControl("txtLegalPerson_Id") as TextBox).Text.Trim());
+
+            var indPerson = IndividualPersonsService.GetAll(false).FirstOrDefault(x=>x.Id==Id);
+            if (indPerson != null) 
             {
-                using (SqlCommand cmd = new SqlCommand("Customers_CRUD"))
-                {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@Action", "UPDATE");
-                    cmd.Parameters.AddWithValue("@CustomerId", customerId);
-                    cmd.Parameters.AddWithValue("@Name", name);
-                    cmd.Parameters.AddWithValue("@Country", country);
-                    cmd.Connection = con;
-                    con.Open();
-                    cmd.ExecuteNonQuery();
-                    con.Close();
-                }
+                indPerson.IIN_BIN = IIN;
+                indPerson.Name = Name;
+                indPerson.LastName = LastName;
+                indPerson.SecondName = SecondName;
+                indPerson.LegalPerson_Id = LPersId;
+                IndividualPersonsService.Update(indPerson);
+
             }
-            this.BindRepeater();*/
+           
+
+
+               this.BindRepeater();
         }
 
         protected void OnDelete(object sender, EventArgs e)
         {
             //Find the reference of the Repeater Item.
             RepeaterItem item = (sender as LinkButton).Parent as RepeaterItem;
-            int customerId = int.Parse((item.FindControl("lblCustomerId") as Label).Text);
-
-          /*  string constr = ConfigurationManager.ConnectionStrings["constr"].ConnectionString;
-            using (SqlConnection con = new SqlConnection(constr))
+            int Id = int.Parse((item.FindControl("lblId") as Label).Text);
+            var indPerson = IndividualPersonsService.GetAll(false).FirstOrDefault(x => x.Id == Id);
+            if (indPerson != null)
             {
-                using (SqlCommand cmd = new SqlCommand("Customers_CRUD"))
-                {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@Action", "DELETE");
-                    cmd.Parameters.AddWithValue("@CustomerId", customerId);
-                    cmd.Connection = con;
-                    con.Open();
-                    cmd.ExecuteNonQuery();
-                    con.Close();
-                }
+                IndividualPersonsService.Delete(Id);
+                this.BindRepeater();
             }
-            this.BindRepeater();*/
         }
 
     }

@@ -38,6 +38,11 @@ namespace CRM.DAL.Repository
             _context.SaveChanges();
         }
 
+        public void Delete(int? id)
+        {
+            throw new NotImplementedException();
+        }
+
         public T Get(int id)
         {
             return _dbSet.Find(id);

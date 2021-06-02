@@ -53,5 +53,25 @@ namespace CRM.BLL.Service
 
         }
 
+        public override void Delete(int? id)
+        {
+           
+           if(id!=null)
+            {
+                var list=repository.GetAll().ToList();
+               var result=list.Where(x=>x.Id!=id);
+
+                Create(result);
+            }
+           
+        }
+
+        public override void Update(IndividualPerson item)
+        {
+            var list = repository.GetAll().ToList();
+            var result = list.Where(x => x.Id != item.Id).ToList();
+            result.Add(item);
+            Create(result);
+        }
     }
 }
