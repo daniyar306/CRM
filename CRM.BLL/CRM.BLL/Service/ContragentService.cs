@@ -1,4 +1,5 @@
-﻿using CRM.BLL.Interface;
+﻿using CRM.BLL.Infrastructure;
+using CRM.BLL.Interface;
 using CRM.DAL.Interface;
 using CRM.DAL.Repository;
 using System;
@@ -26,32 +27,21 @@ namespace CRM.BLL.Service
         public  void Create(IEnumerable<T> contragents)
         {
 
-            try
-            {
-                if(contragents!=null)
-                repository.Create(contragents);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-
-            }
-        }
-
-        public void Create(T contragents)
-        {
-
-            try
-            {
+           
                 if (contragents != null)
-                    repository.Create(contragents);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
+                {
+                   
+                        repository.Create(contragents);
+                 
+                }
+                else
+                throw new ValidationException("Нельзя вставить пустое значение", "");
 
-            }
+
         }
+
+        public abstract void Create(T contragents);
+     
 
         public abstract void Update(T item);
        

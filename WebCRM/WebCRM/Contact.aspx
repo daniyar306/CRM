@@ -1,13 +1,23 @@
-﻿<%@ Page Title="Home Page" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="WebCRM.Default" %>
+﻿<%@ Page Title="Contact" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Contact.aspx.cs" Inherits="WebCRM.Contact" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
-    <p>
+  <p>
 
 
     </p>
     <h5>
-        Список физ. лиц
+        Список юр. лиц
     </h5>
+    <div>
+            Фильтр:
+   <asp:DropDownList ID="ddList" runat="server"
+       ItemType="System.String" SelectMethod="GetCategories" />    
+        <asp:Button ID="btnFilter" runat="server" Text="Filter" OnClick="OnFiltered" Width="68px" />
+        </div>
+          <p>
+
+
+          </p>
    <asp:Repeater ID="Repeater1" runat="server">
         <HeaderTemplate>
             <table cellspacing="0" rules="all" border="1">
@@ -16,20 +26,12 @@
                         Ид
                     </th>
                     <th scope="col" style="width: 120px">
-                        ИИН
+                        БИН
                     </th>
                     <th scope="col" style="width: 100px">
-                        Имя
+                        Наименование
                     </th>
-                      <th scope="col" style="width: 120px">
-                        Фамилия
-                    </th>
-                    <th scope="col" style="width: 100px">
-                        Отчество
-                    </th>
-                      <th scope="col" style="width: 100px">
-                        Идентификатор Юр.лица
-                    </th>
+                   
                     <th scope="col" style="width: 80px">
                     </th>
                 </tr>
@@ -47,25 +49,11 @@
                         Visible="false" />
                 </td>
                 <td>
-                    <asp:Label ID="lblName" runat="server" Text='<%# Eval("Name") %>' />
-                    <asp:TextBox ID="txtName" runat="server" Width="120" Text='<%# Eval("Name") %>'
+                    <asp:Label ID="lblName" runat="server" Text='<%# Eval("FullName") %>' />
+                    <asp:TextBox ID="txtName" runat="server" Width="120" Text='<%# Eval("FullName") %>'
                         Visible="false" />
                 </td>
-                <td>
-                    <asp:Label ID="lblLastName" runat="server" Text='<%# Eval("LastName") %>' />
-                    <asp:TextBox ID="txtLastName" runat="server" Width="120" Text='<%# Eval("LastName") %>'
-                        Visible="false" />
-                </td>
-                <td>
-                    <asp:Label ID="lblSecondName" runat="server" Text='<%# Eval("SecondName") %>' />
-                    <asp:TextBox ID="txtSecondName" runat="server" Width="120" Text='<%# Eval("SecondName") %>'
-                        Visible="false" />
-                </td>
-                <td>
-                    <asp:Label ID="lblLegalPerson_Id" runat="server" Text='<%# Eval("LegalPerson_Id") %>' />
-                    <asp:TextBox ID="txtLegalPerson_Id" runat="server" Width="120" Text='<%# Eval("LegalPerson_Id") %>'
-                        Visible="false" />
-                </td>
+             
                 <td>
                     <asp:LinkButton ID="lnkEdit" Text="Edit" runat="server" OnClick="OnEdit" />
                     <asp:LinkButton ID="lnkUpdate" Text="Update" runat="server" Visible="false" OnClick="OnUpdate" />
@@ -89,21 +77,10 @@
                 <asp:TextBox ID="IIN_BIN" runat="server" Width="140" />
             </td>
             <td style="width: 153px; height: 80px;">
-                Имя:<br />
+                Наименование:<br />
                 <asp:TextBox ID="Name" runat="server" Width="140" />
             </td>
-              <td style="width: 155px; height: 80px;">
-                Фамилия:<br />
-                <asp:TextBox ID="SecondName" runat="server" Width="140" />
-            </td>
-            <td style="width: 153px; height: 80px;">
-                Отчество:<br />
-                <asp:TextBox ID="LastName" runat="server" Width="140" />
-            </td>
-             <td style="width: 154px; height: 80px;">
-                Юр.лицо:<br />
-                <asp:TextBox ID="LegalPerson_Id" runat="server" Width="140" />
-            </td>
+           
             <td style="width: 83px; height: 80px;">
                 <asp:Button ID="btnAdd" runat="server" Text="Add" OnClick="Insert" Width="68px" />
             </td>
@@ -114,7 +91,4 @@
 
 
 
-
-
 </asp:Content>
-

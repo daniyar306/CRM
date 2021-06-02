@@ -13,10 +13,10 @@ namespace WebCRM
     public partial class Default : Page
     {
         IndPersonService IndividualPersonsService = IndPersonService.getInstance("Individual.csv");
-        int incrementID = 0;
+      
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!this.IsPostBack)
+            if (IndividualPersonsService.GetAll(false) == null)
             {
                 List<IndividualPerson> IndividualPersons = new List<IndividualPerson>()
                  {
@@ -27,23 +27,46 @@ namespace WebCRM
                  };
 
                 IndividualPersonsService.Create(IndividualPersons);
-
+            }
+            if (!this.IsPostBack)
+            {
                 this.BindRepeater();
             }
         }
 
-        private void BindRepeater()
+        public IEnumerable<string> GetCategories()
         {
-            var result = IndividualPersonsService.GetAll(false);
+            return new string[] { "Все" }.Concat(IndividualPersonsService.GetAll(false).Select(g => g.IIN_BIN).Distinct().OrderBy(c => c));
+        }
+
+        private void BindRepeater(string Filter= "Все")
+        {
+            IEnumerable<IndividualPerson> result;
+            if (Filter == "Все")
+                result = IndividualPersonsService.GetAll(false);
+            else
+                result= IndividualPersonsService.GetAll(false).Where(x=>x.IIN_BIN== Filter);
+
             Repeater1.DataSource = Converter.ConvertToDatatable(result);
             Repeater1.DataBind();
         }
 
         protected void Insert(object sender, EventArgs e)
         {
+            try
+            {
 
-            IndividualPersonsService.Create(new IndividualPerson(Convert.ToInt16(Id.Text), IIN_BIN.Text, DateTime.Now.Date, "", DateTime.Now.Date, "", Name.Text, SecondName.Text, LastName.Text, Convert.ToInt16(LegalPerson_Id.Text)));
-            this.BindRepeater();
+                IndividualPersonsService.Create(new IndividualPerson(Convert.ToInt16(Id.Text), IIN_BIN.Text, DateTime.Now.Date, "", DateTime.Now.Date, "", Name.Text, SecondName.Text, LastName.Text, Convert.ToInt16(LegalPerson_Id.Text)));
+
+                this.BindRepeater();
+
+            }
+            catch (Exception ex) 
+            {
+            
+            }
+
+
         }
 
         protected void OnEdit(object sender, EventArgs e)
@@ -114,18 +137,24 @@ namespace WebCRM
 
                this.BindRepeater();
         }
+        
+        protected void OnFiltered(object sender, EventArgs e)
+        {
+            var g = ddList.SelectedValue;
 
+
+            this.BindRepeater(g);
+
+        }
         protected void OnDelete(object sender, EventArgs e)
         {
             //Find the reference of the Repeater Item.
             RepeaterItem item = (sender as LinkButton).Parent as RepeaterItem;
             int Id = int.Parse((item.FindControl("lblId") as Label).Text);
-            var indPerson = IndividualPersonsService.GetAll(false).FirstOrDefault(x => x.Id == Id);
-            if (indPerson != null)
-            {
+           
                 IndividualPersonsService.Delete(Id);
                 this.BindRepeater();
-            }
+            
         }
 
     }

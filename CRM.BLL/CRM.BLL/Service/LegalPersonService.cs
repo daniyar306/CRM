@@ -1,5 +1,6 @@
 ﻿using CRM.BLL.BussinesModels;
 using CRM.BLL.DTO;
+using CRM.BLL.Infrastructure;
 using CRM.DAL.Interface;
 using System;
 using System.Collections.Generic;
@@ -40,20 +41,14 @@ namespace CRM.BLL.Service
 
         public override IEnumerable<LegalPerson> GetAll(bool type)
         {
-            try
-            {
+          
                 if (repository.GetAll() != null && individualPersonsService.GetAll(type) != null)
                 {
                     return GetLegalPersons.Get_Persons(type, repository,individualPersonsService);
                 }
                 else
                     return null;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                return null;
-            }
+         
         }
 
         public override void Delete(int? id)
@@ -73,6 +68,27 @@ namespace CRM.BLL.Service
             var result = list.Where(x => x.Id != item.Id).ToList();
             result.Add(item);
             Create(result);
+        }
+
+        public override void Create(LegalPerson contragents)
+        {
+            if (contragents != null)
+            {
+
+                if (GetAll(false) != null)
+                {
+                    if (GetAll(false).SingleOrDefault(x => x.Id == contragents.Id) != null)
+                        throw new ValidationException($"Запись с Ид: {contragents.Id} уже существует","");
+                    else
+                        repository.Create(contragents);
+
+                }
+                else
+                {
+                    repository.Create(contragents);
+                }
+
+            }
         }
     }
 }
