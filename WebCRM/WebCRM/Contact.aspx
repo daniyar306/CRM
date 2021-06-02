@@ -1,7 +1,12 @@
 ﻿<%@ Page Title="Contact" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Contact.aspx.cs" Inherits="WebCRM.Contact" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
-  <p>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+    <p>
 
 
     </p>
@@ -52,6 +57,7 @@
                     <asp:Label ID="lblName" runat="server" Text='<%# Eval("FullName") %>' />
                     <asp:TextBox ID="txtName" runat="server" Width="120" Text='<%# Eval("FullName") %>'
                         Visible="false" />
+
                 </td>
              
                 <td>
@@ -87,7 +93,6 @@
         </tr>
     </table>
     
-  
 
 
 
