@@ -1,0 +1,88 @@
+IF NOT EXISTS (SELECT * FROM master.dbo.sysdatabases WHERE name = 'productsdb') 
+CREATE DATABASE productsdb;
+GO
+
+USE productsdb;
+GO
+IF (object_id('Get_CustomersWithManagers') is null)
+BEGIN
+exec('
+CREATE PROCEDURE Get_CustomersWithManagers
+    @Amount Real,
+    @Date DATETIME,
+	@ErorMesage varchar(MAX)='''' OUTPUT
+AS
+BEGIN
+ BEGIN TRY
+  IF NOT EXISTS (SELECT * FROM SYSOBJECTS WHERE NAME=''MANAGERS'' AND xtype=''U'')
+  BEGIN
+   CREATE TABLE MANAGERS
+   (
+    Id INT IDENTITY PRIMARY KEY, 
+    ManagerName NVARCHAR(30) NOT NULL
+   );
+  END
+  IF NOT EXISTS (SELECT * FROM SYSOBJECTS WHERE NAME=''CUSTOMERS'' AND xtype=''U'')
+  BEGIN
+  CREATE TABLE CUSTOMERS
+  (
+   Id INT IDENTITY PRIMARY KEY,
+   CustomerName NVARCHAR(30) NOT NULL,
+   MANAGER_ID INT NULL ,
+   CONSTRAINT FK_Customers_To_Managers FOREIGN KEY (MANAGER_ID)  REFERENCES MANAGERS (Id) ON DELETE SET NULL
+  );
+  END
+  IF NOT EXISTS (SELECT * FROM SYSOBJECTS WHERE NAME=''ORDERS'' AND xtype=''U'')
+  BEGIN
+  CREATE TABLE ORDERS
+  (
+  Id INT IDENTITY PRIMARY KEY,
+  OrderDate DATETIME NOT NULL,
+  AMOUNT REAL NOT NULL,
+  CUSTOMER_ID INT NULL,
+  CONSTRAINT FK_Orders_To_Customers FOREIGN KEY (CUSTOMER_ID)  REFERENCES CUSTOMERS (Id) ON DELETE SET NULL
+  );
+  END
+  
+  IF NOT EXISTS(SELECT * from MANAGERS)
+  BEGIN
+  INSERT INTO MANAGERS (ManagerName) Values
+  (''Нуржанов''), (''Амангелди''), (''Усович''), (''Комисаренко'');
+  END
+
+  IF NOT EXISTS(SELECT * from CUSTOMERS)
+  BEGIN
+  INSERT INTO CUSTOMERS (CustomerName,MANAGER_ID) Values
+  (''Покупатель1'',1), (''Покупатель2'',1), (''Покупатель4'',3), (''Покупатель3'',2);
+  END
+
+  IF NOT EXISTS(SELECT * from ORDERS)
+  BEGIN
+  INSERT INTO ORDERS (OrderDate,AMOUNT,CUSTOMER_ID) Values
+  (31/12/2012,2000,1),(31/02/2021,5000,1), (1/07/2011,3,2), (2/05/2011,200,3);
+  END
+
+
+ SELECT CustomerName,ManagerName
+ FROM CUSTOMERS
+ INNER JOIN MANAGERS ON CUSTOMERS.MANAGER_ID=MANAGERS.Id
+ INNER JOIN ORDERS ON CUSTOMERS.Id=ORDERS.CUSTOMER_ID
+ WHERE ORDERS.AMOUNT>@Amount and OrderDate >= @Date
+  END
+   END TRY
+   BEGIN CATCH
+    SET @ErorMesage=ERROR_MESSAGE()
+END CATCH'
+   
+  )
+ END;
+ 
+
+ GO
+ DECLARE @Amount REAL=1000,
+     @Date DATETIME=1/01/2013,
+	 @Eror varchar(MAX);
+
+ EXEC Get_CustomersWithManagers @Amount,@Date,@Eror OUTPUT
+
+ PRINT @Eror
