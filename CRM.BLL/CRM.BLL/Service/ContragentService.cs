@@ -18,19 +18,11 @@ namespace CRM.BLL.Service
             repository = new CSVRepository<T>(constring);
         }
 
-        public void Delete(T item)
-        {
-            repository.Delete(item);
-        }
-        public T Get(int id) 
-        {
-          return  repository.Get(id);     
-        }
+        public abstract void Delete(int? id);
+     
+     
         public abstract IEnumerable<T> GetAll(bool type);
-        public void Update(T item)
-        {
-            repository.Update(item);
-        }
+     
         public  void Create(IEnumerable<T> contragents)
         {
 
@@ -61,6 +53,7 @@ namespace CRM.BLL.Service
             }
         }
 
-
+        public abstract void Update(T item);
+       
     }
 }

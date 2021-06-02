@@ -49,10 +49,7 @@ namespace CRM.DAL.Repository
             }
         }
 
-        public T Get(int id)
-        {
-            return GetAll().FirstOrDefault(x=>x.Equals(id));
-        }
+     
 
         public void Create(IEnumerable<T> item)
         {
@@ -66,37 +63,24 @@ namespace CRM.DAL.Repository
 
         public void Create(T item)
         {
+            var list =(List<T>) GetAll();
+            list.Add(item);
             using (var writer = new StreamWriter(LocalPath))
             using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
             {
-                if (item != null)
-                    csv.WriteRecord(item);
+                if (list != null)
+                    csv.WriteRecords(list);
             }
         }
 
         public void Update(T item)
         {
-            Delete(item);
-            Create(item);
-
+            throw new NotImplementedException();
         }
 
-        public void Delete(T item)
+        public void Delete(int? id)
         {
-            List<T> items = (List<T>)GetAll();
-            bool isremoved = items.Remove(item);
-            if (isremoved)
-            {
-                using (var writer = new StreamWriter(LocalPath))
-                using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
-                {
-                    if (items != null)
-                        csv.WriteRecords(items);
-                }
-            }
-          
-
+            throw new NotImplementedException();
         }
-
     }
 }

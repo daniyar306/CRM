@@ -9,12 +9,12 @@ namespace CRM.DAL.Interface
      public interface IRepository<T> where T : class
     {
         IEnumerable<T> GetAll();
-        T Get(int id);
+     
         void Create(IEnumerable<T> item);
 
         void Create(T item);
         void Update(T item);
-        void Delete(T item);
+        void Delete(int? id);
 
     }
 }
