@@ -46,6 +46,21 @@ namespace CRM.BLL.Service
             }
         }
 
-        
+        public void Create(T contragents)
+        {
+
+            try
+            {
+                if (contragents != null)
+                    repository.Create(contragents);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+
+            }
+        }
+
+
     }
 }

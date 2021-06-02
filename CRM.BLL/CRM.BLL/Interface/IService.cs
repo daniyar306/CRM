@@ -11,6 +11,7 @@ namespace CRM.BLL.Interface
         IEnumerable<T> GetAll(bool type);
         T Get(int id);
         void Create(IEnumerable<T> item);
+        void Create(T item);
         void Update(T item);
         void Delete(T item);
 

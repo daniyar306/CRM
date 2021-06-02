@@ -14,9 +14,25 @@ namespace CRM.BLL.Service
     {
    
         private ContragentService<IndividualPerson> individualPersonsService;
+       
+        private static LegalPersonService instance;
 
-   
-        public LegalPersonService(string constring, ContragentService<IndividualPerson> _individualPersonsService) : base(constring)
+        private static object syncRoot = new Object();
+
+        public static LegalPersonService getInstance(string constring, ContragentService<IndividualPerson> _individualPersonsServic)
+        {
+            if (instance == null)
+            {
+                lock (syncRoot)
+                {
+                    if (instance == null)
+                        instance = new LegalPersonService(constring, _individualPersonsServic);
+                }
+            }
+            return instance;
+        }
+
+        protected LegalPersonService(string constring, ContragentService<IndividualPerson> _individualPersonsService) : base(constring)
         {
             this.individualPersonsService = _individualPersonsService;
         }
