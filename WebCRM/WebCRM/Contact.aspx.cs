@@ -33,6 +33,8 @@ namespace WebCRM
                 this.BindRepeater();
             }
         }
+    
+
         public IEnumerable<string> GetCategories()
         {
             
